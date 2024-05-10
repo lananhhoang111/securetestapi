@@ -1,13 +1,17 @@
-function jump(nums) {
-  let jumps = 0;
-  let currentEnd = 0;
-  let farthest = 0;
-  for (let i = 0; i < nums.length - 1; i++) {
-    farthest = Math.max(farthest, i + nums[i]);
-    if (i === currentEnd) {
-      jumps++;
-      currentEnd = farthest;
+function serialize(root) {
+  const result = [];
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    if (node) {
+      result.push(node.val);
+      queue.push(node.left, node.right);
+    } else {
+      result.push(null);
     }
   }
-  return jumps;
+  while (result[result.length - 1] === null) {
+    result.pop();
+  }
+  return result;
 }
